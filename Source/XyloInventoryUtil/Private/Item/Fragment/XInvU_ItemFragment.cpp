@@ -1,4 +1,4 @@
 // Copyright (c) 2026, XyloIsCoding. All rights reserved.
 
 
-#include "Inventory/XInvU_Inventory.h"
+#include "Item/Fragment/XInvU_ItemFragment.h"

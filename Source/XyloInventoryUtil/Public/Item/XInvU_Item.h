@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Object.h"
-#include "XInvU_Inventory.generated.h"
+#include "XInvU_Item.generated.h"
 
 /**
  * 
  */
-USTRUCT()
-struct FXInvU_Inventory
+UCLASS()
+class XYLOINVENTORYUTIL_API UXInvU_Item : public UObject
 {
 	GENERATED_BODY()
 	
