@@ -32,6 +32,11 @@ public:
 
 	template<std::derived_from<FXInvU_ItemFragment> T>
 	const T* FindFragment() const { return static_cast<const T*>(FindFragment(T::StaticStruct())); }
+
+	FXInvU_ItemFragment* FindDynamicFragment(const UScriptStruct* FragmentClass);
+
+	template<std::derived_from<FXInvU_ItemFragment> T>
+	T* FindDynamicFragment() { return static_cast<T*>(FindDynamicFragment(T::StaticStruct())); }
 	
 protected:
 	UPROPERTY()

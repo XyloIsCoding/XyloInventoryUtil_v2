@@ -61,3 +61,12 @@ const FXInvU_ItemFragment* FXInvU_ItemStack::FindFragment(const UScriptStruct* F
 	UXInvU_ItemDefinition* Definition = ItemDefinition.Get();
 	return Definition ? Definition->FindDefaultFragment(FragmentClass) : nullptr;
 }
+
+FXInvU_ItemFragment* FXInvU_ItemStack::FindDynamicFragment(const UScriptStruct* FragmentClass)
+{
+	TInstancedStruct<FXInvU_ItemFragment>* FoundFragment = DynamicFragments.FindByPredicate([FragmentClass](const TInstancedStruct<FXInvU_ItemFragment>& Fragment)->bool
+	{
+		return Fragment.GetScriptStruct() == FragmentClass;
+	});
+	return FoundFragment ? FoundFragment->GetMutablePtr<>() : nullptr;
+}
