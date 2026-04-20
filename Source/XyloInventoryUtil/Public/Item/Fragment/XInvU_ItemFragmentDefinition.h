@@ -3,21 +3,34 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "XInvU_ItemFragment.h"
+#include "XInvU_ItemFragmentData.h"
 #include "UObject/Object.h"
 #include "XInvU_ItemFragmentDefinition.generated.h"
 
+class UXInvU_ItemFragment;
+
 /**
- * Subclass this object and add UPROPERTY UXInvU_ItemFragment members for the static and/or dynamic fragment.
+ * Subclass this object and add UPROPERTY FXInvU_ItemFragmentData members for the static and/or dynamic fragment.
  * Then override the two functions to return your members.
  * We use this method instead of instanced structs so we have access to editor customization.
  */
-UCLASS(BlueprintType, Abstract, DefaultToInstanced, EditInlineNew)
+UCLASS(BlueprintType, Blueprintable, DefaultToInstanced, EditInlineNew, Abstract)
 class XYLOINVENTORYUTIL_API UXInvU_ItemFragmentDefinition : public UObject
 {
 	GENERATED_BODY()
 
 public:
-	virtual FXInvU_ItemFragment* GetStaticFragment() const { return nullptr; }
-	virtual FXInvU_ItemFragment* GetDynamicFragment() const { return nullptr; }
+	template <std::derived_from<UXInvU_ItemFragment> T = UXInvU_ItemFragment>
+	const UXInvU_ItemFragment* GetFragment() const { return Fragment; }
+
+	UFUNCTION(BlueprintCallable, DisplayName="GetFragment", meta = (DeterminesOutputType = "Class"))
+	const UXInvU_ItemFragment* K2_GetFragment(TSubclassOf<UXInvU_ItemFragment> Class) const;
+	
+	virtual FXInvU_ItemFragmentData* GetFragmentStaticData() const { return nullptr; }
+	
+	virtual FXInvU_ItemFragmentData* GetFragmentDynamicData() const { return nullptr; }
+
+protected:
+	UPROPERTY(EditAnywhere, Instanced)
+	TObjectPtr<UXInvU_ItemFragment> Fragment;
 };

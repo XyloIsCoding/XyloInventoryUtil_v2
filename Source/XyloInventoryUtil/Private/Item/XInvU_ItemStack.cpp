@@ -17,23 +17,23 @@ void FXInvU_ItemStack::InitializeAs(UXInvU_ItemDefinition* InItemDefinition, int
 	
 	const TArray<UXInvU_ItemFragmentDefinition*>& DefaultFragments = InItemDefinition->GetDefaultFragments();
 
-	// Copy dynamic fragments
-	DynamicFragments.Empty(DefaultFragments.Num());
+	// Copy fragments dynamic data
+	FragmentsDynamicData.Empty(DefaultFragments.Num());
 	for (const UXInvU_ItemFragmentDefinition* FragmentDefinition : DefaultFragments)
 	{
 		if (IsValid(FragmentDefinition))
 		{
-			if (const FXInvU_ItemFragment* DynamicFragment = FragmentDefinition->GetDynamicFragment())
+			if (const FXInvU_ItemFragmentData* DynamicData = FragmentDefinition->GetFragmentDynamicData())
 			{
-				TInstancedStruct<FXInvU_ItemFragment> NewFragment;
-				NewFragment.InitializeAsScriptStruct(DynamicFragment->GetScriptStruct(), reinterpret_cast<const uint8*>(DynamicFragment));
-				DynamicFragments.Add(NewFragment);
+				TInstancedStruct<FXInvU_ItemFragmentData> NewFragment;
+				NewFragment.InitializeAsScriptStruct(DynamicData->GetScriptStruct(), reinterpret_cast<const uint8*>(DynamicData));
+				FragmentsDynamicData.Add(NewFragment);
 			}
 		}
 	}
 
 	// Set count
-	const FXInvU_StackableItemFragment* StackableFragment = InItemDefinition->FindDefaultFragment<FXInvU_StackableItemFragment>();
+	const FXInvU_StackableItemFragment* StackableFragment = nullptr; // TODO: find fragment
 	int32 MaxCount = StackableFragment ? StackableFragment->MaxCount : 1;
 	Count = FMath::Min(InCount, MaxCount);
 }
@@ -47,31 +47,4 @@ const UXInvU_Item* FXInvU_ItemStack::GetItem() const
 void FXInvU_ItemStack::SetCount(int32 NewCount)
 {
 	Count = NewCount;
-}
-
-const FXInvU_ItemFragment* FXInvU_ItemStack::FindFragment(const UScriptStruct* FragmentClass) const
-{
-	// Look for fragment in ItemStack
-	const TInstancedStruct<FXInvU_ItemFragment>* FoundFragment = DynamicFragments.FindByPredicate([FragmentClass](const TInstancedStruct<FXInvU_ItemFragment>& Fragment)->bool
-	{
-		return Fragment.GetScriptStruct() == FragmentClass;
-	});
-	
-	if (FoundFragment)
-	{
-		return FoundFragment->GetPtr<>();
-	}
-
-	// If not found, look in DefaultFragments on the definition
-	UXInvU_ItemDefinition* Definition = ItemDefinition.Get();
-	return Definition ? Definition->FindDefaultFragment(FragmentClass) : nullptr;
-}
-
-FXInvU_ItemFragment* FXInvU_ItemStack::FindDynamicFragment(const UScriptStruct* FragmentClass)
-{
-	TInstancedStruct<FXInvU_ItemFragment>* FoundFragment = DynamicFragments.FindByPredicate([FragmentClass](const TInstancedStruct<FXInvU_ItemFragment>& Fragment)->bool
-	{
-		return Fragment.GetScriptStruct() == FragmentClass;
-	});
-	return FoundFragment ? FoundFragment->GetMutablePtr<>() : nullptr;
 }

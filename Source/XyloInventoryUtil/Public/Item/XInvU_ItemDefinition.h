@@ -7,7 +7,7 @@
 #include "Fragment/XInvU_ItemFragmentDefinition.h"
 #include "XInvU_ItemStack.h"
 #include "Engine/DataAsset.h"
-#include "Fragment/XInvU_ItemFragment.h"
+#include "Fragment/XInvU_ItemFragmentData.h"
 #include "XInvU_ItemDefinition.generated.h"
 
 class UXInvU_Item;
@@ -26,15 +26,10 @@ public:
 	FName GetItemName() const { return ItemName; }
 	
 	template <std::derived_from<UXInvU_Item> T = UXInvU_Item>
-	const UXInvU_Item* GetItem() const { return ItemClass ? ItemClass->GetDefaultObject<T>() : nullptr; }
+	const UXInvU_Item* GetItem() const { return Item; }
 
 	UFUNCTION(BlueprintCallable, DisplayName="GetItem", meta = (DeterminesOutputType = "Class"))
 	const UXInvU_Item* K2_GetItem(TSubclassOf<UXInvU_Item> Class) const;
-
-	const FXInvU_ItemFragment* FindDefaultFragment(const UScriptStruct* FragmentClass) const;
-	
-	template<std::derived_from<FXInvU_ItemFragment> T>
-	const T* FindDefaultFragment() const { return static_cast<const T*>(FindDefaultFragment(T::StaticStruct())); }
 
 	UFUNCTION(BlueprintCallable)
 	const TArray<UXInvU_ItemFragmentDefinition*>& GetDefaultFragments() const { return Fragments; }
@@ -43,8 +38,8 @@ protected:
 	UPROPERTY(EditAnywhere)
 	FName ItemName;
 
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<UXInvU_Item> ItemClass;
+	UPROPERTY(EditAnywhere, Instanced)
+	TObjectPtr<UXInvU_Item> Item;
 
 	UPROPERTY(EditAnywhere, Instanced)
 	TArray<TObjectPtr<UXInvU_ItemFragmentDefinition>> Fragments;

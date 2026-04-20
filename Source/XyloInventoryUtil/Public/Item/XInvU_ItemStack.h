@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Fragment/XInvU_ItemFragment.h"
+#include "Fragment/XInvU_ItemFragmentData.h"
 #include "StructUtils/InstancedStruct.h"
 #include "XInvU_ItemStack.generated.h"
 
@@ -25,19 +25,12 @@ public:
 	void InitializeAs(UXInvU_ItemDefinition* InItemDefinition, int32 InCount);
 
 	const UXInvU_ItemDefinition* GetItemDefinition() const { return ItemDefinition; }
-	const UXInvU_Item* GetItem() const;
-	int32 GetCount() const { return Count; }
-	void SetCount(int32 NewCount);
 	
-	const FXInvU_ItemFragment* FindFragment(const UScriptStruct* FragmentClass) const;
-
-	template<std::derived_from<FXInvU_ItemFragment> T>
-	const T* FindFragment() const { return static_cast<const T*>(FindFragment(T::StaticStruct())); }
-
-	FXInvU_ItemFragment* FindDynamicFragment(const UScriptStruct* FragmentClass);
-
-	template<std::derived_from<FXInvU_ItemFragment> T>
-	T* FindDynamicFragment() { return static_cast<T*>(FindDynamicFragment(T::StaticStruct())); }
+	const UXInvU_Item* GetItem() const;
+	
+	int32 GetCount() const { return Count; }
+	
+	void SetCount(int32 NewCount);
 	
 protected:
 	UPROPERTY()
@@ -47,5 +40,5 @@ protected:
 	int32 Count = 0;
 
 	UPROPERTY()
-	TArray<TInstancedStruct<FXInvU_ItemFragment>> DynamicFragments;
+	TArray<TInstancedStruct<FXInvU_ItemFragmentData>> FragmentsDynamicData;
 };

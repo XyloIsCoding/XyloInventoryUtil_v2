@@ -3,19 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "UObject/Object.h"
 #include "XInvU_ItemFragment.generated.h"
 
 /**
  * 
  */
-USTRUCT(BlueprintType)
-struct XYLOINVENTORYUTIL_API FXInvU_ItemFragment
+UCLASS(BlueprintType, Blueprintable, DefaultToInstanced, EditInlineNew)
+class XYLOINVENTORYUTIL_API UXInvU_ItemFragment : public UObject
 {
 	GENERATED_BODY()
-
-	FXInvU_ItemFragment() {}
-	virtual ~FXInvU_ItemFragment() {}
-	
-	/** @remark: MUST override in child classes. */
-	virtual const UScriptStruct* GetScriptStruct() const { return FXInvU_ItemFragment::StaticStruct(); }
 };
