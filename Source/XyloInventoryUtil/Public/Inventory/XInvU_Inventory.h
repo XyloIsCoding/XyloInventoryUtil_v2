@@ -38,6 +38,10 @@ struct XYLOINVENTORYUTIL_API FXInvU_Inventory
 	virtual int32 ConsumeItem(UXInvU_ItemDefinition* ItemDefinition, int32 Count);
 
 	virtual void GetChangedIndexes(const FXInvU_Inventory& OldInventory, TArray<int32>& OutChangedIndexes) const;
+
+protected:
+	virtual void MarkStackPropertyDirty(FXInvU_InventorySlot& Slot);
+	virtual void MarkStackDirty(FXInvU_InventorySlot& Slot);
 	
 protected:
 	UPROPERTY()

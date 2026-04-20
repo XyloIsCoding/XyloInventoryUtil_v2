@@ -22,7 +22,7 @@ void FXInvU_Inventory::SetStack(int32 SlotIndex, const FXInvU_ItemStack& NewStac
 
 	FXInvU_InventorySlot& Slot = Slots[SlotIndex];
 	Slot.Stack = NewStack;
-	Slot.RepTracker.MarkStackDirty();
+	MarkStackDirty(Slot);
 }
 
 int32 FXInvU_Inventory::AddStack(const FXInvU_ItemStack& NewStack, int32 CountOverride)
@@ -49,7 +49,7 @@ int32 FXInvU_Inventory::AddStack(const FXInvU_ItemStack& NewStack, int32 CountOv
 				const int32 CountToAdd = FMath::Min(SpaceLeft, CountLeftToAdd);
 				
 				Slot.Stack.SetCount(InvStackCount + CountToAdd);
-				Slot.RepTracker.MarkStackPropertyDirty();
+				MarkStackPropertyDirty(Slot);
 
 				CountLeftToAdd -= CountToAdd;
 				if (CountLeftToAdd <= 0)
@@ -67,7 +67,7 @@ int32 FXInvU_Inventory::AddStack(const FXInvU_ItemStack& NewStack, int32 CountOv
 		{
 			Slot.Stack = NewStack;
 			Slot.Stack.SetCount(FMath::Min(MaxCountPerStack, CountLeftToAdd));
-			Slot.RepTracker.MarkStackDirty();
+			MarkStackDirty(Slot);
 
 			CountLeftToAdd -= Slot.Stack.GetCount();
 			if (CountLeftToAdd <= 0)
@@ -89,7 +89,7 @@ void FXInvU_Inventory::RemoveStack(int32 SlotIndex)
 
 	FXInvU_InventorySlot& Slot = Slots[SlotIndex];
 	Slot.Stack = FXInvU_ItemStack();
-	Slot.RepTracker.MarkStackDirty();
+	MarkStackDirty(Slot);
 }
 
 int32 FXInvU_Inventory::ConsumeItem(UXInvU_ItemDefinition* ItemDefinition, int32 Count)
@@ -111,7 +111,7 @@ int32 FXInvU_Inventory::ConsumeItem(UXInvU_ItemDefinition* ItemDefinition, int32
 				const int32 CountToConsume = FMath::Min(Count, InvStackCount);
 				
 				Slot.Stack.SetCount(InvStackCount - CountToConsume);
-				Slot.RepTracker.MarkStackPropertyDirty();
+				MarkStackPropertyDirty(Slot);
 
 				ConsumedCount += CountToConsume;
 				if (ConsumedCount >= Count)
@@ -136,4 +136,14 @@ void FXInvU_Inventory::GetChangedIndexes(const FXInvU_Inventory& OldInventory, T
 			OutChangedIndexes.Add(SlotIndex);
 		}
 	}
+}
+
+void FXInvU_Inventory::MarkStackPropertyDirty(FXInvU_InventorySlot& Slot)
+{
+	Slot.RepTracker.MarkStackPropertyDirty();
+}
+
+void FXInvU_Inventory::MarkStackDirty(FXInvU_InventorySlot& Slot)
+{
+	Slot.RepTracker.MarkStackDirty();
 }
