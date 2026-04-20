@@ -26,6 +26,9 @@ void FXInvU_InventorySlotRepTracker::MarkStackDirty()
 
 bool FXInvU_InventorySlotRepTracker::NetSerialize(FArchive& Ar, class UPackageMap* Map, bool& bOutSuccess)
 {
+	bStackChanged = false;
+	bStackDirty = false;
+	
 	Ar.SerializeBits(&StackID, 8);
 	Ar.SerializeBits(&ChangeID, 8);
 	return true;
