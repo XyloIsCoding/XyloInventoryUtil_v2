@@ -14,6 +14,8 @@ struct XYLOINVENTORYUTIL_API FXInvU_InventorySlotRepTracker
 {
 	GENERATED_BODY()
 
+	FXInvU_InventorySlotRepTracker() {}
+
 	FXInvU_InventorySlotRepTracker(const FXInvU_InventorySlotRepTracker& Other) : StackID(Other.StackID), ChangeID(Other.ChangeID) { }
 	
 	FXInvU_InventorySlotRepTracker(FXInvU_InventorySlotRepTracker&& Other) noexcept : StackID(Other.StackID), ChangeID(Other.ChangeID) { }
