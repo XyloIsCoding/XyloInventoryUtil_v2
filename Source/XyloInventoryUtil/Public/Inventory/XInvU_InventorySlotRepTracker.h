@@ -14,6 +14,24 @@ struct XYLOINVENTORYUTIL_API FXInvU_InventorySlotRepTracker
 {
 	GENERATED_BODY()
 
+	FXInvU_InventorySlotRepTracker(const FXInvU_InventorySlotRepTracker& Other) : StackID(Other.StackID), ChangeID(Other.ChangeID) { }
+	
+	FXInvU_InventorySlotRepTracker(FXInvU_InventorySlotRepTracker&& Other) noexcept : StackID(Other.StackID), ChangeID(Other.ChangeID) { }
+
+	FXInvU_InventorySlotRepTracker& operator=(const FXInvU_InventorySlotRepTracker& Other)
+	{
+		StackID = Other.StackID;
+		ChangeID = Other.ChangeID;
+		return *this;
+	}
+
+	FXInvU_InventorySlotRepTracker& operator=(FXInvU_InventorySlotRepTracker&& Other) noexcept
+	{
+		StackID = Other.StackID;
+		ChangeID = Other.ChangeID;
+		return *this;
+	}
+
 	/** Call when properties on the stack changed. */
 	void MarkStackPropertyDirty();
 
@@ -29,10 +47,10 @@ struct XYLOINVENTORYUTIL_API FXInvU_InventorySlotRepTracker
 	uint8 ChangeID = 0;
 
 protected:
-	UPROPERTY()
+	UPROPERTY(Transient)
 	bool bStackDirty = false;
 
-	UPROPERTY()
+	UPROPERTY(Transient)
 	bool bStackChanged = false;
 };
 
