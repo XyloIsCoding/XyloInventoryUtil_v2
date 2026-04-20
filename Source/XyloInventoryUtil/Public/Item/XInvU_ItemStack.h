@@ -3,12 +3,25 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "Fragment/XInvU_ItemFragmentData.h"
 #include "StructUtils/InstancedStruct.h"
 #include "XInvU_ItemStack.generated.h"
 
 class UXInvU_Item;
 class UXInvU_ItemDefinition;
+
+USTRUCT()
+struct XYLOINVENTORYUTIL_API FXInvU_ItemFragmentContainer
+{
+	GENERATED_BODY()
+
+	UPROPERTY()
+	FGameplayTag FragmentTag;
+
+	UPROPERTY()
+	TInstancedStruct<FXInvU_ItemFragmentData> FragmentData;
+};
 
 /**
  * 
@@ -31,6 +44,16 @@ public:
 	int32 GetCount() const { return Count; }
 	
 	void SetCount(int32 NewCount);
+
+	FXInvU_ItemFragmentData* GetFragmentDynamicData(FGameplayTag FragmentTag, UStruct* StructType);
+
+	template<std::derived_from<FXInvU_ItemFragmentData> T>
+	T* GetFragmentDynamicData(FGameplayTag FragmentTag) { return GetFragmentDynamicData(FragmentTag, T::StaticStruct()); }
+
+	const FXInvU_ItemFragmentData* GetFragmentDynamicData(FGameplayTag FragmentTag, UStruct* StructType) const;
+
+	template<std::derived_from<FXInvU_ItemFragmentData> T>
+	const T* GetFragmentDynamicData(FGameplayTag FragmentTag) const { return GetFragmentDynamicData(FragmentTag, T::StaticStruct()); }
 	
 protected:
 	UPROPERTY()
@@ -40,5 +63,5 @@ protected:
 	int32 Count = 0;
 
 	UPROPERTY()
-	TArray<TInstancedStruct<FXInvU_ItemFragmentData>> FragmentsDynamicData;
+	TArray<FXInvU_ItemFragmentContainer> FragmentsDynamicData;
 };

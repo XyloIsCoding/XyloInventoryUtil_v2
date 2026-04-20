@@ -25,8 +25,9 @@ void FXInvU_ItemStack::InitializeAs(UXInvU_ItemDefinition* InItemDefinition, int
 		{
 			if (const FXInvU_ItemFragmentData* DynamicData = FragmentDefinition->GetFragmentDynamicData())
 			{
-				TInstancedStruct<FXInvU_ItemFragmentData> NewFragment;
-				NewFragment.InitializeAsScriptStruct(DynamicData->GetScriptStruct(), reinterpret_cast<const uint8*>(DynamicData));
+				FXInvU_ItemFragmentContainer NewFragment;
+				NewFragment.FragmentTag = FragmentDefinition->GetFragmentTag();
+				NewFragment.FragmentData.InitializeAsScriptStruct(DynamicData->GetScriptStruct(), reinterpret_cast<const uint8*>(DynamicData));
 				FragmentsDynamicData.Add(NewFragment);
 			}
 		}
@@ -47,4 +48,28 @@ const UXInvU_Item* FXInvU_ItemStack::GetItem() const
 void FXInvU_ItemStack::SetCount(int32 NewCount)
 {
 	Count = NewCount;
+}
+
+FXInvU_ItemFragmentData* FXInvU_ItemStack::GetFragmentDynamicData(FGameplayTag FragmentTag, UStruct* StructType)
+{
+	for (FXInvU_ItemFragmentContainer& FragmentContainer : FragmentsDynamicData)
+	{
+		if (FragmentContainer.FragmentTag.MatchesTagExact(FragmentTag) && FragmentContainer.FragmentData.GetScriptStruct()->IsChildOf(StructType))
+		{
+			return FragmentContainer.FragmentData.GetMutablePtr<>();
+		}
+	}
+	return nullptr;
+}
+
+const FXInvU_ItemFragmentData* FXInvU_ItemStack::GetFragmentDynamicData(FGameplayTag FragmentTag, UStruct* StructType) const
+{
+	for (const FXInvU_ItemFragmentContainer& FragmentContainer : FragmentsDynamicData)
+	{
+		if (FragmentContainer.FragmentTag.MatchesTagExact(FragmentTag) && FragmentContainer.FragmentData.GetScriptStruct()->IsChildOf(StructType))
+		{
+			return FragmentContainer.FragmentData.GetPtr<>();
+		}
+	}
+	return nullptr;
 }
