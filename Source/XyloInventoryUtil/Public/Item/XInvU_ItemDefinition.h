@@ -39,12 +39,12 @@ public:
 	const UXInvU_ItemFragmentDefinition* GetFragmentDefinition(FGameplayTag FragmentTag) const;
 	
 protected:
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	FName ItemName;
 
-	UPROPERTY(EditAnywhere, Instanced)
+	UPROPERTY(EditDefaultsOnly, Instanced)
 	TObjectPtr<UXInvU_Item> Item;
 
-	UPROPERTY(EditAnywhere, Instanced)
+	UPROPERTY(EditDefaultsOnly, Instanced)
 	TArray<TObjectPtr<UXInvU_ItemFragmentDefinition>> Fragments;
 };

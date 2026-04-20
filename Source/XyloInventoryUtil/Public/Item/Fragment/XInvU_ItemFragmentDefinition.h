@@ -35,9 +35,9 @@ public:
 	virtual FXInvU_ItemFragmentData* GetFragmentDynamicData() const { return nullptr; }
 
 protected:
-	UPROPERTY(EditAnywhere, Instanced)
+	UPROPERTY(EditDefaultsOnly)
 	FGameplayTag FragmentTag;
 	
-	UPROPERTY(EditAnywhere, Instanced)
+	UPROPERTY(EditDefaultsOnly, Instanced)
 	TObjectPtr<UXInvU_ItemFragment> Fragment;
 };
