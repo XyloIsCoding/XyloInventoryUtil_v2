@@ -24,9 +24,10 @@ struct XYLOINVENTORYUTIL_API FXInvU_ItemStack
 public:
 	void InitializeAs(UXInvU_ItemDefinition* InItemDefinition, int32 InCount);
 
-	const UXInvU_ItemDefinition* GetItemDefinition() const { return ItemDefinition.Get(); }
+	const UXInvU_ItemDefinition* GetItemDefinition() const { return ItemDefinition; }
 	const UXInvU_Item* GetItem() const;
 	int32 GetCount() const { return Count; }
+	void SetCount(int32 NewCount);
 	
 	const FXInvU_ItemFragment* FindFragment(const UScriptStruct* FragmentClass) const;
 
@@ -40,7 +41,7 @@ public:
 	
 protected:
 	UPROPERTY()
-	TWeakObjectPtr<UXInvU_ItemDefinition> ItemDefinition = nullptr;
+	TObjectPtr<UXInvU_ItemDefinition> ItemDefinition = nullptr;
 
 	UPROPERTY(BlueprintReadOnly)
 	int32 Count = 0;

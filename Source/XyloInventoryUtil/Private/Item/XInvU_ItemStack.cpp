@@ -44,6 +44,11 @@ const UXInvU_Item* FXInvU_ItemStack::GetItem() const
 	return Definition ? Definition->GetItem<>() : nullptr;
 }
 
+void FXInvU_ItemStack::SetCount(int32 NewCount)
+{
+	Count = NewCount;
+}
+
 const FXInvU_ItemFragment* FXInvU_ItemStack::FindFragment(const UScriptStruct* FragmentClass) const
 {
 	// Look for fragment in ItemStack
