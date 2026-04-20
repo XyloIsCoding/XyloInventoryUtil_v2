@@ -13,7 +13,7 @@ FXInvU_ItemStack::FXInvU_ItemStack(const UXInvU_ItemDefinition* InItemDefinition
 
 void FXInvU_ItemStack::InitializeAs(const UXInvU_ItemDefinition* InItemDefinition, int32 InCount)
 {
-	check(IsValid(ItemDefinition))
+	check(IsValid(InItemDefinition))
 	
 	ItemDefinition = InItemDefinition;
 	
