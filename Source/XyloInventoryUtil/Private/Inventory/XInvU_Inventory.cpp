@@ -3,6 +3,11 @@
 
 #include "Inventory/XInvU_Inventory.h"
 
+void FXInvU_Inventory::CopyInventoryContent(FXInvU_Inventory& Source)
+{
+	Slots = Source.Slots;
+}
+
 const FXInvU_ItemStack* FXInvU_Inventory::GetStack(int32 SlotIndex) const
 {
 	return Slots.IsValidIndex(SlotIndex) ? &Slots[SlotIndex].Stack : nullptr;

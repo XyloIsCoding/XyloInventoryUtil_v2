@@ -25,6 +25,8 @@ struct XYLOINVENTORYUTIL_API FXInvU_Inventory
 	
 	virtual ~FXInvU_Inventory() {}
 
+	virtual void CopyInventoryContent(FXInvU_Inventory& Source);
+
 	virtual const FXInvU_ItemStack* GetStack(int32 SlotIndex) const;
 	
 	virtual void SetStack(int32 SlotIndex, const FXInvU_ItemStack& NewStack);
