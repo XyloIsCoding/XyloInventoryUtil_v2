@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "XInvU_Item.h"
 #include "Fragment/XInvU_ItemFragmentDefinition.h"
 #include "XInvU_ItemStack.h"
@@ -32,7 +33,10 @@ public:
 	const UXInvU_Item* K2_GetItem(TSubclassOf<UXInvU_Item> Class) const;
 
 	UFUNCTION(BlueprintCallable)
-	const TArray<UXInvU_ItemFragmentDefinition*>& GetDefaultFragments() const { return Fragments; }
+	const TArray<UXInvU_ItemFragmentDefinition*>& GetFragmentDefinitions() const { return Fragments; }
+
+	UFUNCTION(BlueprintCallable)
+	const UXInvU_ItemFragmentDefinition* GetFragmentDefinition(FGameplayTag FragmentTag) const;
 	
 protected:
 	UPROPERTY(EditAnywhere)

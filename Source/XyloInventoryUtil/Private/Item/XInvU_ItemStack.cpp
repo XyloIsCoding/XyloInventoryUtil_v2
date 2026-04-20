@@ -15,7 +15,7 @@ void FXInvU_ItemStack::InitializeAs(UXInvU_ItemDefinition* InItemDefinition, int
 {
 	ItemDefinition = InItemDefinition;
 	
-	const TArray<UXInvU_ItemFragmentDefinition*>& DefaultFragments = InItemDefinition->GetDefaultFragments();
+	const TArray<UXInvU_ItemFragmentDefinition*>& DefaultFragments = InItemDefinition->GetFragmentDefinitions();
 
 	// Copy fragments dynamic data
 	FragmentsDynamicData.Empty(DefaultFragments.Num());

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "XInvU_ItemFragmentData.h"
 #include "UObject/Object.h"
 #include "XInvU_ItemFragmentDefinition.generated.h"
@@ -20,6 +21,9 @@ class XYLOINVENTORYUTIL_API UXInvU_ItemFragmentDefinition : public UObject
 	GENERATED_BODY()
 
 public:
+	UFUNCTION(BlueprintCallable)
+	FGameplayTag GetFragmentTag() const { return FragmentTag; }
+	
 	template <std::derived_from<UXInvU_ItemFragment> T = UXInvU_ItemFragment>
 	const UXInvU_ItemFragment* GetFragment() const { return Fragment; }
 
@@ -31,6 +35,9 @@ public:
 	virtual FXInvU_ItemFragmentData* GetFragmentDynamicData() const { return nullptr; }
 
 protected:
+	UPROPERTY(EditAnywhere, Instanced)
+	FGameplayTag FragmentTag;
+	
 	UPROPERTY(EditAnywhere, Instanced)
 	TObjectPtr<UXInvU_ItemFragment> Fragment;
 };
