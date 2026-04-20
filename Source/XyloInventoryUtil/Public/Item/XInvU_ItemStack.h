@@ -32,10 +32,10 @@ struct XYLOINVENTORYUTIL_API FXInvU_ItemStack
 	GENERATED_BODY()
 
 	FXInvU_ItemStack() {}
-	FXInvU_ItemStack(UXInvU_ItemDefinition* InItemDefinition, int32 InCount = 1);
+	FXInvU_ItemStack(const UXInvU_ItemDefinition* InItemDefinition, int32 InCount = 1);
 	
 public:
-	void InitializeAs(UXInvU_ItemDefinition* InItemDefinition, int32 InCount);
+	void InitializeAs(const UXInvU_ItemDefinition* InItemDefinition, int32 InCount);
 
 	const UXInvU_ItemDefinition* GetItemDefinition() const { return ItemDefinition; }
 	
@@ -55,7 +55,7 @@ public:
 	
 protected:
 	UPROPERTY()
-	TObjectPtr<UXInvU_ItemDefinition> ItemDefinition = nullptr;
+	TObjectPtr<const UXInvU_ItemDefinition> ItemDefinition = nullptr;
 
 	UPROPERTY(BlueprintReadOnly)
 	int32 Count = 0;

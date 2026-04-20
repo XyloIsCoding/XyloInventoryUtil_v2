@@ -42,3 +42,8 @@ void UXInvU_InventoryStaticLibrary::GetChangedIndexes(const FXInvU_Inventory& In
 {
 	Inventory.GetChangedIndexes(OldInventory, OutChangedIndexes);
 }
+
+void UXInvU_InventoryStaticLibrary::DebugPrintInventory(const FXInvU_Inventory& Inventory)
+{
+	Inventory.DebugPrintInventory();
+}

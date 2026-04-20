@@ -21,6 +21,9 @@ class XYLOINVENTORYUTIL_API UXInvU_ItemStaticLibrary : public UBlueprintFunction
 	GENERATED_BODY()
 
 	UFUNCTION(Category="ItemStaticLibrary", BlueprintCallable)
+	static bool MakeItemStack(FXInvU_ItemStack& OutItemStack, const UXInvU_ItemDefinition* ItemDefinition, int32 Count);
+
+	UFUNCTION(Category="ItemStaticLibrary", BlueprintCallable)
 	static const UXInvU_ItemDefinition* GetItemDefinition(const FXInvU_ItemStack& ItemStack);
 
 	UFUNCTION(Category="ItemStaticLibrary", BlueprintCallable)

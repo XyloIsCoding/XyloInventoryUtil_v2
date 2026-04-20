@@ -4,6 +4,8 @@
 
 #include "Modules/ModuleManager.h"
 
+XYLOINVENTORYUTIL_API DECLARE_LOG_CATEGORY_EXTERN(LogXyloInventoryUtil, Log, All);
+
 class FXyloInventoryUtilModule : public IModuleInterface
 {
 public:

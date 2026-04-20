@@ -17,7 +17,7 @@ class UXInvU_ItemFragmentDefinition;
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType, Blueprintable)
 class XYLOINVENTORYUTIL_API UXInvU_ItemDefinition : public UPrimaryDataAsset
 {
 	GENERATED_BODY()

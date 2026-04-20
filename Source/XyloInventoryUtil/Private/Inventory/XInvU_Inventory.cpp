@@ -3,6 +3,9 @@
 
 #include "Inventory/XInvU_Inventory.h"
 
+#include "XyloInventoryUtil.h"
+#include "Item/XInvU_ItemDefinition.h"
+
 void FXInvU_Inventory::CopyInventoryContent(const FXInvU_Inventory& Source)
 {
 	Slots = Source.Slots;
@@ -30,7 +33,7 @@ int32 FXInvU_Inventory::AddStack(const FXInvU_ItemStack& NewStack, int32 CountOv
 	int32 CountLeftToAdd = CountOverride > 0 ? CountOverride : NewStack.GetCount();
 
 	// Return if we cannot add anything.
-	if (!NewStack.GetItemDefinition() || CountLeftToAdd <= 0)
+	if (!IsValid(NewStack.GetItemDefinition()) || CountLeftToAdd <= 0)
 	{
 		return 0;
 	}
@@ -63,7 +66,7 @@ int32 FXInvU_Inventory::AddStack(const FXInvU_ItemStack& NewStack, int32 CountOv
 	// Start creating new stacks.
 	for (FXInvU_InventorySlot& Slot : Slots)
 	{
-		if (Slot.Stack.GetItemDefinition() == nullptr || Slot.Stack.GetCount() == 0)
+		if (!IsValid(Slot.Stack.GetItemDefinition()) || Slot.Stack.GetCount() == 0)
 		{
 			Slot.Stack = NewStack;
 			Slot.Stack.SetCount(FMath::Min(MaxCountPerStack, CountLeftToAdd));
@@ -94,7 +97,7 @@ void FXInvU_Inventory::RemoveStack(int32 SlotIndex)
 
 int32 FXInvU_Inventory::ConsumeItem(UXInvU_ItemDefinition* ItemDefinition, int32 Count)
 {
-	if (!ItemDefinition)
+	if (!IsValid(ItemDefinition))
 	{
 		return 0;
 	}
@@ -146,4 +149,17 @@ void FXInvU_Inventory::MarkStackPropertyDirty(FXInvU_InventorySlot& Slot)
 void FXInvU_Inventory::MarkStackDirty(FXInvU_InventorySlot& Slot)
 {
 	Slot.RepTracker.MarkStackDirty();
+}
+
+void FXInvU_Inventory::DebugPrintInventory() const
+{
+	for (auto It = Slots.CreateConstIterator(); It; ++It)
+	{
+		const FXInvU_ItemStack& Stack = It->Stack;
+		if (IsValid(Stack.GetItemDefinition()) && Stack.GetCount() > 0)
+		{
+			FString ItemName = Stack.GetItemDefinition()->GetItemName().ToString();
+			UE_LOG(LogXyloInventoryUtil, Warning, TEXT("Slot %i: %s (%i)"), It.GetIndex(), *ItemName, Stack.GetCount())
+		}
+	}
 }

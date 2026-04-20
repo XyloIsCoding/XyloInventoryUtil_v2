@@ -6,13 +6,15 @@
 #include "Item/XInvU_ItemDefinition.h"
 #include "Item/Fragment/Base/XInvU_StackableItemFragment.h"
 
-FXInvU_ItemStack::FXInvU_ItemStack(UXInvU_ItemDefinition* InItemDefinition, int32 InCount)
+FXInvU_ItemStack::FXInvU_ItemStack(const UXInvU_ItemDefinition* InItemDefinition, int32 InCount)
 {
 	InitializeAs(InItemDefinition, InCount);
 }
 
-void FXInvU_ItemStack::InitializeAs(UXInvU_ItemDefinition* InItemDefinition, int32 InCount)
+void FXInvU_ItemStack::InitializeAs(const UXInvU_ItemDefinition* InItemDefinition, int32 InCount)
 {
+	check(IsValid(ItemDefinition))
+	
 	ItemDefinition = InItemDefinition;
 	
 	const TArray<UXInvU_ItemFragmentDefinition*>& DefaultFragments = InItemDefinition->GetFragmentDefinitions();

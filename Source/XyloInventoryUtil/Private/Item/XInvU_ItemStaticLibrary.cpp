@@ -5,6 +5,16 @@
 
 #include "Item/XInvU_ItemDefinition.h"
 
+bool UXInvU_ItemStaticLibrary::MakeItemStack(FXInvU_ItemStack& OutItemStack, const UXInvU_ItemDefinition* ItemDefinition, int32 Count)
+{
+	if (ensureMsgf(IsValid(ItemDefinition), TEXT("UXInvU_ItemStaticLibrary::MakeItemStack >> item definition must be valid")))
+	{
+		OutItemStack = FXInvU_ItemStack(ItemDefinition, Count);
+		return true;
+	}
+	return false;
+}
+
 const UXInvU_ItemDefinition* UXInvU_ItemStaticLibrary::GetItemDefinition(const FXInvU_ItemStack& ItemStack)
 {
 	return ItemStack.GetItemDefinition();
@@ -13,7 +23,7 @@ const UXInvU_ItemDefinition* UXInvU_ItemStaticLibrary::GetItemDefinition(const F
 const UXInvU_Item* UXInvU_ItemStaticLibrary::GetItem(const FXInvU_ItemStack& ItemStack)
 {
 	const UXInvU_ItemDefinition* ItemDefinition = ItemStack.GetItemDefinition();
-	return ItemDefinition ? ItemDefinition->GetItem<>() : nullptr;
+	return IsValid(ItemDefinition) ? ItemDefinition->GetItem<>() : nullptr;
 }
 
 int32 UXInvU_ItemStaticLibrary::GetStackCount(const FXInvU_ItemStack& ItemStack)
@@ -29,7 +39,7 @@ void UXInvU_ItemStaticLibrary::SetStackCount(FXInvU_ItemStack& ItemStack, int32 
 const UXInvU_ItemFragmentDefinition* UXInvU_ItemStaticLibrary::GetFragmentDefinition(const FXInvU_ItemStack& ItemStack, FGameplayTag FragmentTag)
 {
 	const UXInvU_ItemDefinition* ItemDefinition = ItemStack.GetItemDefinition();
-	if (!ItemDefinition)
+	if (!IsValid(ItemDefinition))
 	{
 		return nullptr;
 	}
@@ -40,7 +50,7 @@ const UXInvU_ItemFragmentDefinition* UXInvU_ItemStaticLibrary::GetFragmentDefini
 const UXInvU_ItemFragment* UXInvU_ItemStaticLibrary::GetFragment(const FXInvU_ItemStack& ItemStack, FGameplayTag FragmentTag)
 {
 	const UXInvU_ItemFragmentDefinition* FragmentDefinition = GetFragmentDefinition(ItemStack, FragmentTag);
-	if (!FragmentDefinition)
+	if (!IsValid(FragmentDefinition))
 	{
 		return nullptr;
 	}
@@ -71,7 +81,7 @@ bool UXInvU_ItemStaticLibrary::SetFragmentDynamicData(FXInvU_ItemStack& ItemStac
 const FXInvU_ItemFragmentData* UXInvU_ItemStaticLibrary::FindFragmentData(const FXInvU_ItemStack& ItemStack, FGameplayTag FragmentTag, const UScriptStruct* StructType)
 {
 	const UXInvU_ItemDefinition* ItemDefinition = ItemStack.GetItemDefinition();
-	if (!ItemDefinition)
+	if (!IsValid(ItemDefinition))
 	{
 		return nullptr;
 	}
@@ -82,7 +92,7 @@ const FXInvU_ItemFragmentData* UXInvU_ItemStaticLibrary::FindFragmentData(const 
 	}
 
 	const UXInvU_ItemFragmentDefinition* FragmentDefinition = ItemDefinition->FindFragmentDefinition(FragmentTag);
-	if (!FragmentDefinition)
+	if (!IsValid(FragmentDefinition))
 	{
 		return nullptr;
 	}

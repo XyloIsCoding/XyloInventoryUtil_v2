@@ -39,6 +39,8 @@ struct XYLOINVENTORYUTIL_API FXInvU_Inventory
 
 	virtual void GetChangedIndexes(const FXInvU_Inventory& OldInventory, TArray<int32>& OutChangedIndexes) const;
 
+	virtual void DebugPrintInventory() const;
+	
 protected:
 	virtual void MarkStackPropertyDirty(FXInvU_InventorySlot& Slot);
 	virtual void MarkStackDirty(FXInvU_InventorySlot& Slot);

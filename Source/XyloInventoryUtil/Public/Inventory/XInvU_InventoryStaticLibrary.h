@@ -35,4 +35,7 @@ class XYLOINVENTORYUTIL_API UXInvU_InventoryStaticLibrary : public UBlueprintFun
 
 	UFUNCTION(Category="InventoryStaticLibrary", BlueprintCallable)
 	static void GetChangedIndexes(const FXInvU_Inventory& Inventory, const FXInvU_Inventory& OldInventory, TArray<int32>& OutChangedIndexes);
+
+	UFUNCTION(Category="InventoryStaticLibrary", BlueprintCallable)
+	static void DebugPrintInventory(const FXInvU_Inventory& Inventory);
 };

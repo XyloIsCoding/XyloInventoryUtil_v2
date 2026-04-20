@@ -2,6 +2,8 @@
 
 #include "XyloInventoryUtil.h"
 
+DEFINE_LOG_CATEGORY(LogXyloInventoryUtil);
+
 #define LOCTEXT_NAMESPACE "FXyloInventoryUtilModule"
 
 void FXyloInventoryUtilModule::StartupModule()
