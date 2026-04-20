@@ -20,19 +20,20 @@ struct XYLOINVENTORYUTIL_API FXInvU_InventorySlotRepTracker
 	/** Call when the stack itself got changed in its entirety. */
 	void MarkStackDirty();
 
+	bool NetSerialize(FArchive& Ar, class UPackageMap* Map, bool& bOutSuccess);
+
 	UPROPERTY()
 	uint8 StackID = 0;
 	
 	UPROPERTY()
 	uint8 ChangeID = 0;
 
+protected:
 	UPROPERTY()
 	bool bStackDirty = false;
 
 	UPROPERTY()
 	bool bStackChanged = false;
-
-	bool NetSerialize(FArchive& Ar, class UPackageMap* Map, bool& bOutSuccess);
 };
 
 template<>
