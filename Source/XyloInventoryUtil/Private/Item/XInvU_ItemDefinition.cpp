@@ -12,7 +12,7 @@ const UXInvU_Item* UXInvU_ItemDefinition::K2_GetItem(TSubclassOf<UXInvU_Item> Cl
 	return GetItem<>();
 }
 
-const UXInvU_ItemFragmentDefinition* UXInvU_ItemDefinition::GetFragmentDefinition(FGameplayTag FragmentTag) const
+const UXInvU_ItemFragmentDefinition* UXInvU_ItemDefinition::FindFragmentDefinition(FGameplayTag FragmentTag) const
 {
 	const TObjectPtr<UXInvU_ItemFragmentDefinition>* FragmentDefPtr = Fragments.FindByPredicate([FragmentTag](const UXInvU_ItemFragmentDefinition* FragmentDef)
 	{

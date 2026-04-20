@@ -25,7 +25,7 @@ public:
 	FGameplayTag GetFragmentTag() const { return FragmentTag; }
 	
 	template <std::derived_from<UXInvU_ItemFragment> T = UXInvU_ItemFragment>
-	const UXInvU_ItemFragment* GetFragment() const { return Fragment; }
+	const T* GetFragment() const { return Cast<T>(Fragment); }
 
 	UFUNCTION(BlueprintCallable, DisplayName="GetFragment", meta = (DeterminesOutputType = "Class"))
 	const UXInvU_ItemFragment* K2_GetFragment(TSubclassOf<UXInvU_ItemFragment> Class) const;

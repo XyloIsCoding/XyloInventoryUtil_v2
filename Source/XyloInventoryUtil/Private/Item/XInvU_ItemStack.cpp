@@ -39,18 +39,12 @@ void FXInvU_ItemStack::InitializeAs(UXInvU_ItemDefinition* InItemDefinition, int
 	Count = FMath::Min(InCount, MaxCount);
 }
 
-const UXInvU_Item* FXInvU_ItemStack::GetItem() const
-{
-	UXInvU_ItemDefinition* Definition = ItemDefinition.Get();
-	return Definition ? Definition->GetItem<>() : nullptr;
-}
-
 void FXInvU_ItemStack::SetCount(int32 NewCount)
 {
 	Count = NewCount;
 }
 
-FXInvU_ItemFragmentData* FXInvU_ItemStack::GetFragmentDynamicData(FGameplayTag FragmentTag, UStruct* StructType)
+FXInvU_ItemFragmentData* FXInvU_ItemStack::FindFragmentDynamicData(FGameplayTag FragmentTag, const UScriptStruct* StructType)
 {
 	for (FXInvU_ItemFragmentContainer& FragmentContainer : FragmentsDynamicData)
 	{
@@ -62,7 +56,7 @@ FXInvU_ItemFragmentData* FXInvU_ItemStack::GetFragmentDynamicData(FGameplayTag F
 	return nullptr;
 }
 
-const FXInvU_ItemFragmentData* FXInvU_ItemStack::GetFragmentDynamicData(FGameplayTag FragmentTag, UStruct* StructType) const
+const FXInvU_ItemFragmentData* FXInvU_ItemStack::FindFragmentDynamicData(FGameplayTag FragmentTag, const UScriptStruct* StructType) const
 {
 	for (const FXInvU_ItemFragmentContainer& FragmentContainer : FragmentsDynamicData)
 	{

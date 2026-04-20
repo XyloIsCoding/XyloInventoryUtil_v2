@@ -39,21 +39,19 @@ public:
 
 	const UXInvU_ItemDefinition* GetItemDefinition() const { return ItemDefinition; }
 	
-	const UXInvU_Item* GetItem() const;
-	
 	int32 GetCount() const { return Count; }
 	
 	void SetCount(int32 NewCount);
 
-	FXInvU_ItemFragmentData* GetFragmentDynamicData(FGameplayTag FragmentTag, UStruct* StructType);
+	FXInvU_ItemFragmentData* FindFragmentDynamicData(FGameplayTag FragmentTag, const UScriptStruct* StructType);
 
 	template<std::derived_from<FXInvU_ItemFragmentData> T>
-	T* GetFragmentDynamicData(FGameplayTag FragmentTag) { return GetFragmentDynamicData(FragmentTag, T::StaticStruct()); }
+	T* FindFragmentDynamicData(FGameplayTag FragmentTag) { return static_cast<T*>(FindFragmentDynamicData(FragmentTag, T::StaticStruct())); }
 
-	const FXInvU_ItemFragmentData* GetFragmentDynamicData(FGameplayTag FragmentTag, UStruct* StructType) const;
+	const FXInvU_ItemFragmentData* FindFragmentDynamicData(FGameplayTag FragmentTag, const UScriptStruct* StructType) const;
 
 	template<std::derived_from<FXInvU_ItemFragmentData> T>
-	const T* GetFragmentDynamicData(FGameplayTag FragmentTag) const { return GetFragmentDynamicData(FragmentTag, T::StaticStruct()); }
+	const T* FindFragmentDynamicData(FGameplayTag FragmentTag) const { return static_cast<T*>(FindFragmentDynamicData(FragmentTag, T::StaticStruct())); }
 	
 protected:
 	UPROPERTY()

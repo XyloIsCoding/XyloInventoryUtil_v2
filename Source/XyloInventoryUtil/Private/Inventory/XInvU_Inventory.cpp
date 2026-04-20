@@ -3,7 +3,7 @@
 
 #include "Inventory/XInvU_Inventory.h"
 
-void FXInvU_Inventory::CopyInventoryContent(FXInvU_Inventory& Source)
+void FXInvU_Inventory::CopyInventoryContent(const FXInvU_Inventory& Source)
 {
 	Slots = Source.Slots;
 }
@@ -125,7 +125,7 @@ int32 FXInvU_Inventory::ConsumeItem(UXInvU_ItemDefinition* ItemDefinition, int32
 	return ConsumedCount;
 }
 
-void FXInvU_Inventory::GetChangedIndexes(const FXInvU_Inventory& OldInventory, TArray<int32>& OutChangedIndexes)
+void FXInvU_Inventory::GetChangedIndexes(const FXInvU_Inventory& OldInventory, TArray<int32>& OutChangedIndexes) const
 {
 	for (int32 SlotIndex = 0; SlotIndex < Slots.Num(); ++SlotIndex)
 	{

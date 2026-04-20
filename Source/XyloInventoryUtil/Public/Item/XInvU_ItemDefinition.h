@@ -27,7 +27,7 @@ public:
 	FName GetItemName() const { return ItemName; }
 	
 	template <std::derived_from<UXInvU_Item> T = UXInvU_Item>
-	const UXInvU_Item* GetItem() const { return Item; }
+	const T* GetItem() const { return Cast<T>(Item); }
 
 	UFUNCTION(BlueprintCallable, DisplayName="GetItem", meta = (DeterminesOutputType = "Class"))
 	const UXInvU_Item* K2_GetItem(TSubclassOf<UXInvU_Item> Class) const;
@@ -36,7 +36,7 @@ public:
 	const TArray<UXInvU_ItemFragmentDefinition*>& GetFragmentDefinitions() const { return Fragments; }
 
 	UFUNCTION(BlueprintCallable)
-	const UXInvU_ItemFragmentDefinition* GetFragmentDefinition(FGameplayTag FragmentTag) const;
+	const UXInvU_ItemFragmentDefinition* FindFragmentDefinition(FGameplayTag FragmentTag) const;
 	
 protected:
 	UPROPERTY(EditDefaultsOnly)

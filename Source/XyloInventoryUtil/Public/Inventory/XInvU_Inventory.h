@@ -11,7 +11,7 @@
 /**
  * 
  */
-USTRUCT()
+USTRUCT(BlueprintType)
 struct XYLOINVENTORYUTIL_API FXInvU_Inventory
 {
 	GENERATED_BODY()
@@ -25,7 +25,7 @@ struct XYLOINVENTORYUTIL_API FXInvU_Inventory
 	
 	virtual ~FXInvU_Inventory() {}
 
-	virtual void CopyInventoryContent(FXInvU_Inventory& Source);
+	virtual void CopyInventoryContent(const FXInvU_Inventory& Source);
 
 	virtual const FXInvU_ItemStack* GetStack(int32 SlotIndex) const;
 	
@@ -37,7 +37,7 @@ struct XYLOINVENTORYUTIL_API FXInvU_Inventory
 
 	virtual int32 ConsumeItem(UXInvU_ItemDefinition* ItemDefinition, int32 Count);
 
-	virtual void GetChangedIndexes(const FXInvU_Inventory& OldInventory, TArray<int32>& OutChangedIndexes);
+	virtual void GetChangedIndexes(const FXInvU_Inventory& OldInventory, TArray<int32>& OutChangedIndexes) const;
 	
 protected:
 	UPROPERTY()
