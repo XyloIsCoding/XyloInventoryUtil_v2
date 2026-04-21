@@ -28,7 +28,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FGameplayTag GetFragmentTag() const { return FragmentTag; }
 
-	/** Set the tag univocally defines this fragment. */
+	/** Set the tag which univocally defines this fragment. Should only be called during construction! */
 	UFUNCTION(BlueprintCallable)
 	void SetFragmentTag(FGameplayTag InFragmentTag);
 	
