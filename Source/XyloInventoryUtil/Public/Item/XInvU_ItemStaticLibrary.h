@@ -15,7 +15,7 @@ class UXInvU_Item;
 /**
  * 
  */
-UCLASS()
+UCLASS(DisplayName="Item Static Library")
 class XYLOINVENTORYUTIL_API UXInvU_ItemStaticLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()

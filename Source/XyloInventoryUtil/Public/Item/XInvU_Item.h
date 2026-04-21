@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS(BlueprintType, Blueprintable, DefaultToInstanced, EditInlineNew)
+UCLASS(DisplayName="Item", BlueprintType, Blueprintable, DefaultToInstanced, EditInlineNew)
 class XYLOINVENTORYUTIL_API UXInvU_Item : public UObject
 {
 	GENERATED_BODY()

@@ -8,7 +8,6 @@
 #include "Fragment/XInvU_ItemFragmentDefinition.h"
 #include "XInvU_ItemStack.h"
 #include "Engine/DataAsset.h"
-#include "Fragment/XInvU_ItemFragmentData.h"
 #include "XInvU_ItemDefinition.generated.h"
 
 class UXInvU_Item;
@@ -17,7 +16,7 @@ class UXInvU_ItemFragmentDefinition;
 /**
  * 
  */
-UCLASS(BlueprintType, Blueprintable)
+UCLASS(DisplayName="Item Definition", BlueprintType, Blueprintable)
 class XYLOINVENTORYUTIL_API UXInvU_ItemDefinition : public UPrimaryDataAsset
 {
 	GENERATED_BODY()
@@ -29,11 +28,11 @@ public:
 	template <std::derived_from<UXInvU_Item> T = UXInvU_Item>
 	const T* GetItem() const { return Cast<T>(Item); }
 
+	UFUNCTION(BlueprintCallable, DisplayName="GetItem", meta = (DeterminesOutputType="Class"))
+	const UXInvU_Item* K2_GetItem(TSubclassOf<UXInvU_Item> Class) const;
+
 	UFUNCTION(BlueprintCallable)
 	FGameplayTagContainer GetItemCategories() const { return Categories; }
-
-	UFUNCTION(BlueprintCallable, DisplayName="GetItem", meta = (DeterminesOutputType = "Class"))
-	const UXInvU_Item* K2_GetItem(TSubclassOf<UXInvU_Item> Class) const;
 
 	UFUNCTION(BlueprintCallable)
 	const TArray<UXInvU_ItemFragmentDefinition*>& GetFragmentDefinitions() const { return Fragments; }

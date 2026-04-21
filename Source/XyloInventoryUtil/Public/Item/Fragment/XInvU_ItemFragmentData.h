@@ -8,7 +8,7 @@
 /**
  * 
  */
-USTRUCT(BlueprintType)
+USTRUCT(DisplayName="Fragment Data", BlueprintType)
 struct XYLOINVENTORYUTIL_API FXInvU_ItemFragmentData
 {
 	GENERATED_BODY()

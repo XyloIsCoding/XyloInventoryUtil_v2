@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS(BlueprintType, Blueprintable, DefaultToInstanced, EditInlineNew)
+UCLASS(DisplayName="Item Fragment", BlueprintType, Blueprintable, DefaultToInstanced, EditInlineNew)
 class XYLOINVENTORYUTIL_API UXInvU_ItemFragment : public UObject
 {
 	GENERATED_BODY()

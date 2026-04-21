@@ -26,12 +26,13 @@ struct XYLOINVENTORYUTIL_API FXInvU_ItemFragmentContainer
 /**
  * 
  */
-USTRUCT(BlueprintType)
+USTRUCT(DisplayName="Item Stack", BlueprintType)
 struct XYLOINVENTORYUTIL_API FXInvU_ItemStack
 {
 	GENERATED_BODY()
 
 	FXInvU_ItemStack() {}
+	
 	FXInvU_ItemStack(const UXInvU_ItemDefinition* InItemDefinition, int32 InCount = 1);
 	
 public:
