@@ -10,11 +10,6 @@ UXInvU_ItemFragmentDefinition::UXInvU_ItemFragmentDefinition(const FObjectInitia
 {
 }
 
-void UXInvU_ItemFragmentDefinition::SetFragmentTag(FGameplayTag InFragmentTag)
-{
-	FragmentTag = InFragmentTag;
-}
-
 const UXInvU_ItemFragment* UXInvU_ItemFragmentDefinition::K2_GetFragment(TSubclassOf<UXInvU_ItemFragment> Class) const
 {
 	if (!Class || !Class->IsChildOf(Fragment.GetClass()))
@@ -22,6 +17,11 @@ const UXInvU_ItemFragment* UXInvU_ItemFragmentDefinition::K2_GetFragment(TSubcla
 		return nullptr;
 	}
 	return GetFragment<>();
+}
+
+void UXInvU_ItemFragmentDefinition::SetFragmentTag(FGameplayTag InFragmentTag)
+{
+	FragmentTag = InFragmentTag;
 }
 
 const FXInvU_ItemFragmentData* UXInvU_BlueprintItemFragmentDefinition::GetFragmentDataByName(FName FragmentDataName) const

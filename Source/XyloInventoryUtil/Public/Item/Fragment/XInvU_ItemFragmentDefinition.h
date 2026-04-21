@@ -27,10 +27,6 @@ public:
 public:
 	UFUNCTION(BlueprintCallable)
 	FGameplayTag GetFragmentTag() const { return FragmentTag; }
-
-	/** Set the tag which univocally defines this fragment. Should only be called during construction! */
-	UFUNCTION(BlueprintCallable)
-	void SetFragmentTag(FGameplayTag InFragmentTag);
 	
 	template <std::derived_from<UXInvU_ItemFragment> T = UXInvU_ItemFragment>
 	const T* GetFragment() const { return Cast<T>(Fragment); }
@@ -43,6 +39,10 @@ public:
 	virtual const FXInvU_ItemFragmentData* GetFragmentDynamicData() const { return nullptr; }
 
 protected:
+	/** Set the tag which univocally defines this fragment. Should only be called during construction! */
+	UFUNCTION(BlueprintCallable)
+	void SetFragmentTag(FGameplayTag InFragmentTag);
+	
 	UPROPERTY(Category="Fragment", VisibleAnywhere, meta = (DisplayPriority="0"))
 	FGameplayTag FragmentTag;
 	
