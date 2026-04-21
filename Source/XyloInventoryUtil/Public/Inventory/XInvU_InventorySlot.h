@@ -19,6 +19,9 @@ struct XYLOINVENTORYUTIL_API FXInvU_InventorySlot
 	UPROPERTY()
 	FXInvU_ItemStack Stack;
 
+	UPROPERTY(NotReplicated)
+	FGameplayTagContainer CategoryFilter;
+	
 	UPROPERTY()
 	FXInvU_InventorySlotRepTracker RepTracker;
 };

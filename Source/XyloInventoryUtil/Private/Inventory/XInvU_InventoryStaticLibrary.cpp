@@ -47,3 +47,13 @@ void UXInvU_InventoryStaticLibrary::DebugPrintInventory(const FXInvU_Inventory& 
 {
 	Inventory.DebugPrintInventory();
 }
+
+bool UXInvU_InventoryStaticLibrary::GetSlotCategoryFilter(const FXInvU_Inventory& Inventory, int32 SlotIndex, FGameplayTagContainer& OutCategoryFilter)
+{
+	return Inventory.GetSlotCategoryFilter(SlotIndex, OutCategoryFilter);
+}
+
+void UXInvU_InventoryStaticLibrary::SetSlotCategoryFilter(FXInvU_Inventory& Inventory, int32 SlotIndex, FGameplayTagContainer NewCategoryFilter)
+{
+	Inventory.SetSlotCategoryFilter(SlotIndex, NewCategoryFilter);
+}

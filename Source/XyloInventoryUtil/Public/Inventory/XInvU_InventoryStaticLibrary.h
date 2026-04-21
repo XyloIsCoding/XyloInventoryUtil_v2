@@ -38,4 +38,10 @@ class XYLOINVENTORYUTIL_API UXInvU_InventoryStaticLibrary : public UBlueprintFun
 
 	UFUNCTION(Category="InventoryStaticLibrary", BlueprintCallable)
 	static void DebugPrintInventory(const FXInvU_Inventory& Inventory);
+
+	UFUNCTION(Category="InventoryStaticLibrary", BlueprintCallable)
+	static bool GetSlotCategoryFilter(const FXInvU_Inventory& Inventory, int32 SlotIndex, FGameplayTagContainer& OutCategoryFilter);
+
+	UFUNCTION(Category="InventoryStaticLibrary", BlueprintCallable)
+	static void SetSlotCategoryFilter(FXInvU_Inventory& Inventory, int32 SlotIndex, FGameplayTagContainer NewCategoryFilter);
 };

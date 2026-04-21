@@ -29,6 +29,9 @@ public:
 	template <std::derived_from<UXInvU_Item> T = UXInvU_Item>
 	const T* GetItem() const { return Cast<T>(Item); }
 
+	UFUNCTION(BlueprintCallable)
+	FGameplayTagContainer GetItemCategories() const { return Categories; }
+
 	UFUNCTION(BlueprintCallable, DisplayName="GetItem", meta = (DeterminesOutputType = "Class"))
 	const UXInvU_Item* K2_GetItem(TSubclassOf<UXInvU_Item> Class) const;
 
@@ -44,6 +47,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Instanced)
 	TObjectPtr<UXInvU_Item> Item;
+
+	UPROPERTY(EditDefaultsOnly)
+	FGameplayTagContainer Categories;
 
 	UPROPERTY(EditDefaultsOnly, Instanced)
 	TArray<TObjectPtr<UXInvU_ItemFragmentDefinition>> Fragments;

@@ -24,8 +24,11 @@ void FXInvU_Inventory::SetStack(int32 SlotIndex, const FXInvU_ItemStack& NewStac
 	}
 
 	FXInvU_InventorySlot& Slot = Slots[SlotIndex];
-	Slot.Stack = NewStack;
-	MarkStackDirty(Slot);
+	if (IsStackCompatibleWithSlot(Slot, NewStack))
+	{
+		Slot.Stack = NewStack;
+		MarkStackDirty(Slot);
+	}
 }
 
 int32 FXInvU_Inventory::AddStack(const FXInvU_ItemStack& NewStack, int32 CountOverride)
@@ -66,7 +69,9 @@ int32 FXInvU_Inventory::AddStack(const FXInvU_ItemStack& NewStack, int32 CountOv
 	// Start creating new stacks.
 	for (FXInvU_InventorySlot& Slot : Slots)
 	{
-		if (!IsValid(Slot.Stack.GetItemDefinition()) || Slot.Stack.GetCount() == 0)
+		bool bSlotEmpty = !IsValid(Slot.Stack.GetItemDefinition()) || Slot.Stack.GetCount() == 0;
+		bool bSlotCompatible = IsStackCompatibleWithSlot(Slot, NewStack);
+		if (bSlotEmpty && bSlotCompatible)
 		{
 			Slot.Stack = NewStack;
 			Slot.Stack.SetCount(FMath::Min(MaxCountPerStack, CountLeftToAdd));
@@ -162,4 +167,47 @@ void FXInvU_Inventory::DebugPrintInventory() const
 			UE_LOG(LogXyloInventoryUtil, Warning, TEXT("Slot %i: %s (%i)"), It.GetIndex(), *ItemName, Stack.GetCount())
 		}
 	}
+}
+
+FGameplayTagContainer& FXInvU_Inventory::GetSlotCategoryFilterRef(int32 SlotIndex)
+{
+	check(Slots.IsValidIndex(SlotIndex))
+	
+	FXInvU_InventorySlot& Slot = Slots[SlotIndex];
+	return Slot.CategoryFilter;
+}
+
+bool FXInvU_Inventory::GetSlotCategoryFilter(int32 SlotIndex, FGameplayTagContainer& OutCategoryFilter) const
+{
+	if (!Slots.IsValidIndex(SlotIndex))
+	{
+		return false;
+	}
+
+	const FXInvU_InventorySlot& Slot = Slots[SlotIndex];
+	OutCategoryFilter = Slot.CategoryFilter;
+	return true;
+}
+
+void FXInvU_Inventory::SetSlotCategoryFilter(int32 SlotIndex, FGameplayTagContainer NewCategoryFilter)
+{
+	if (!Slots.IsValidIndex(SlotIndex))
+	{
+		return;
+	}
+
+	FXInvU_InventorySlot& Slot = Slots[SlotIndex];
+	Slot.CategoryFilter = NewCategoryFilter;
+}
+
+bool FXInvU_Inventory::IsStackCompatibleWithSlot(const FXInvU_InventorySlot& Slot, const FXInvU_ItemStack& NewStack) const
+{
+	// Empty stack is always compatible
+	if (!IsValid(NewStack.GetItemDefinition()))
+	{
+		return true;
+	}
+
+	// Compatible if no category filter or at least one match
+	return Slot.CategoryFilter.IsEmpty() || Slot.CategoryFilter.HasAnyExact(NewStack.GetItemDefinition()->GetItemCategories());
 }

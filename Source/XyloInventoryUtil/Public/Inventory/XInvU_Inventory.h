@@ -40,8 +40,16 @@ struct XYLOINVENTORYUTIL_API FXInvU_Inventory
 	virtual void GetChangedIndexes(const FXInvU_Inventory& OldInventory, TArray<int32>& OutChangedIndexes) const;
 
 	virtual void DebugPrintInventory() const;
+
+	virtual FGameplayTagContainer& GetSlotCategoryFilterRef(int32 SlotIndex);
+
+	virtual bool GetSlotCategoryFilter(int32 SlotIndex, FGameplayTagContainer& OutCategoryFilter) const;
+
+	virtual void SetSlotCategoryFilter(int32 SlotIndex, FGameplayTagContainer NewCategoryFilter);
 	
 protected:
+	virtual bool IsStackCompatibleWithSlot(const FXInvU_InventorySlot& Slot, const FXInvU_ItemStack& NewStack) const;
+	
 	virtual void MarkStackPropertyDirty(FXInvU_InventorySlot& Slot);
 	virtual void MarkStackDirty(FXInvU_InventorySlot& Slot);
 	
