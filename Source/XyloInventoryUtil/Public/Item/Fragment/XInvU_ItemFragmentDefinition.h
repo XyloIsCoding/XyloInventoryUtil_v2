@@ -55,7 +55,7 @@ protected:
  * Subclass in blueprint, call SetFragmentTag in construction script, and optionally add two properties derived from
  * FXInvU_ItemFragmentData named FragmentStaticData and FragmentDynamicData.
  */
-UCLASS(DisplayName="Blueprint Fragment Definition", Blueprintable)
+UCLASS(DisplayName="Blueprint Fragment Definition", Blueprintable, Abstract)
 class XYLOINVENTORYUTIL_API UXInvU_BlueprintItemFragmentDefinition : public UXInvU_ItemFragmentDefinition
 {
 	GENERATED_BODY()

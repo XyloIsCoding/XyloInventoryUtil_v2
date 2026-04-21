@@ -15,6 +15,7 @@ class XYLOINVENTORYUTIL_API UXInvU_InventoryStaticLibrary : public UBlueprintFun
 {
 	GENERATED_BODY()
 
+public:
 	UFUNCTION(Category="InventoryStaticLibrary", BlueprintCallable)
 	static void CopyInventoryContent(UPARAM(ref) FXInvU_Inventory& Target, const FXInvU_Inventory& Source);
 

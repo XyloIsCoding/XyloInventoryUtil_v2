@@ -20,6 +20,7 @@ class XYLOINVENTORYUTIL_API UXInvU_ItemStaticLibrary : public UBlueprintFunction
 {
 	GENERATED_BODY()
 
+public:
 	UFUNCTION(Category="ItemStaticLibrary", BlueprintCallable)
 	static bool MakeItemStack(FXInvU_ItemStack& OutItemStack, const UXInvU_ItemDefinition* ItemDefinition, int32 Count);
 
@@ -31,6 +32,9 @@ class XYLOINVENTORYUTIL_API UXInvU_ItemStaticLibrary : public UBlueprintFunction
 
 	UFUNCTION(Category="ItemStaticLibrary", BlueprintCallable)
 	static int32 GetStackCount(const FXInvU_ItemStack& ItemStack);
+
+	UFUNCTION(Category="ItemStaticLibrary", BlueprintCallable)
+	static int32 GetStackMaxCount(const FXInvU_ItemStack& ItemStack);
 
 	UFUNCTION(Category="ItemStaticLibrary", BlueprintCallable)
 	static void SetStackCount(UPARAM(ref) FXInvU_ItemStack& ItemStack, int32 NewCount);
@@ -47,8 +51,13 @@ class XYLOINVENTORYUTIL_API UXInvU_ItemStaticLibrary : public UBlueprintFunction
 	UFUNCTION(Category="ItemStaticLibrary", BlueprintCallable)
 	static bool SetFragmentDynamicData(UPARAM(ref) FXInvU_ItemStack& ItemStack, FGameplayTag FragmentTag, const TInstancedStruct<FXInvU_ItemFragmentData>& NewData);
 
+	static const FXInvU_ItemFragmentData* FindFragmentData(const UXInvU_ItemDefinition* ItemDefinition, FGameplayTag FragmentTag, const UScriptStruct* StructType);
+
+	template<std::derived_from<FXInvU_ItemFragmentData> T>
+	static const T* FindFragmentData(const UXInvU_ItemDefinition* ItemDefinition, FGameplayTag FragmentTag) { return static_cast<const T*>(FindFragmentData(ItemDefinition, FragmentTag, T::StaticStruct())); }
+	
 	static const FXInvU_ItemFragmentData* FindFragmentData(const FXInvU_ItemStack& ItemStack, FGameplayTag FragmentTag, const UScriptStruct* StructType);
 
 	template<std::derived_from<FXInvU_ItemFragmentData> T>
-	static const T* FindFragmentData(const FXInvU_ItemStack& ItemStack, FGameplayTag FragmentTag) { return static_cast<T*>(FindFragmentData(ItemStack, FragmentTag, T::StaticStruct())); }
+	static const T* FindFragmentData(const FXInvU_ItemStack& ItemStack, FGameplayTag FragmentTag) { return static_cast<const T*>(FindFragmentData(ItemStack, FragmentTag, T::StaticStruct())); }
 };

@@ -5,6 +5,7 @@
 
 #include "XyloInventoryUtil.h"
 #include "Item/XInvU_ItemDefinition.h"
+#include "Item/XInvU_ItemStaticLibrary.h"
 
 void FXInvU_Inventory::CopyInventoryContent(const FXInvU_Inventory& Source)
 {
@@ -41,7 +42,7 @@ int32 FXInvU_Inventory::AddStack(const FXInvU_ItemStack& NewStack, int32 CountOv
 		return 0;
 	}
 	
-	const int32 MaxCountPerStack = 16; // TODO: get from stackable fragment
+	const int32 MaxCountPerStack = UXInvU_ItemStaticLibrary::GetStackMaxCount(NewStack);
 
 	// Try to add count to existing stacks.
 	for (FXInvU_InventorySlot& Slot : Slots)

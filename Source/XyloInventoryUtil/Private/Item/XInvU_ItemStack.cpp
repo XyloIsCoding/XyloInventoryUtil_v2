@@ -4,6 +4,8 @@
 #include "Item/XInvU_ItemStack.h"
 
 #include "Item/XInvU_ItemDefinition.h"
+#include "Item/XInvU_ItemStaticLibrary.h"
+#include "Item/Fragment/Base/XInvU_FragmentTags.h"
 #include "Item/Fragment/Base/XInvU_StackableItemFragment.h"
 
 FXInvU_ItemStack::FXInvU_ItemStack(const UXInvU_ItemDefinition* InItemDefinition, int32 InCount)
@@ -36,8 +38,7 @@ void FXInvU_ItemStack::InitializeAs(const UXInvU_ItemDefinition* InItemDefinitio
 	}
 
 	// Set count
-	const FXInvU_StackableItemFragment* StackableFragment = nullptr; // TODO: find fragment
-	int32 MaxCount = StackableFragment ? StackableFragment->MaxCount : 1;
+	int32 MaxCount = UXInvU_ItemStaticLibrary::GetStackMaxCount(*this);
 	Count = FMath::Min(InCount, MaxCount);
 }
 

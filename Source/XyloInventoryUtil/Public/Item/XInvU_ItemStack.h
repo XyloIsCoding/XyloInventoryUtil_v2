@@ -52,7 +52,7 @@ public:
 	const FXInvU_ItemFragmentData* FindFragmentDynamicData(FGameplayTag FragmentTag, const UScriptStruct* StructType) const;
 
 	template<std::derived_from<FXInvU_ItemFragmentData> T>
-	const T* FindFragmentDynamicData(FGameplayTag FragmentTag) const { return static_cast<T*>(FindFragmentDynamicData(FragmentTag, T::StaticStruct())); }
+	const T* FindFragmentDynamicData(FGameplayTag FragmentTag) const { return static_cast<const T*>(FindFragmentDynamicData(FragmentTag, T::StaticStruct())); }
 	
 protected:
 	UPROPERTY()
