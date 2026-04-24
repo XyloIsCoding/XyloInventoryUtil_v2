@@ -26,10 +26,10 @@ public:
 	FName GetItemName() const { return ItemName; }
 	
 	template <std::derived_from<UXInvU_Item> T = UXInvU_Item>
-	const T* GetItem() const { return Cast<T>(Item); }
+	T* GetItem() const { return Cast<T>(Item); }
 
 	UFUNCTION(BlueprintCallable, DisplayName="GetItem", meta = (DeterminesOutputType="Class"))
-	const UXInvU_Item* K2_GetItem(TSubclassOf<UXInvU_Item> Class) const;
+	UXInvU_Item* K2_GetItem(TSubclassOf<UXInvU_Item> Class) const;
 
 	UFUNCTION(BlueprintCallable)
 	const FGameplayTagContainer& GetItemCategories() const { return Categories; }

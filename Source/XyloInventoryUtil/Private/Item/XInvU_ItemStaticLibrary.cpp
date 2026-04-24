@@ -32,7 +32,7 @@ bool UXInvU_ItemStaticLibrary::GetItemCategories(FGameplayTagContainer& OutCateg
 	return false;
 }
 
-const UXInvU_Item* UXInvU_ItemStaticLibrary::GetItem(const FXInvU_ItemStack& ItemStack)
+UXInvU_Item* UXInvU_ItemStaticLibrary::GetItem(const FXInvU_ItemStack& ItemStack)
 {
 	const UXInvU_ItemDefinition* ItemDefinition = ItemStack.GetItemDefinition();
 	return IsValid(ItemDefinition) ? ItemDefinition->GetItem<>() : nullptr;
