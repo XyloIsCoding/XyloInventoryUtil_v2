@@ -8,6 +8,11 @@
 #include "UObject/Object.h"
 #include "XInvU_Inventory.generated.h"
 
+struct FXInvU_Inventory;
+
+DECLARE_MULTICAST_DELEGATE_TwoParams(FXInvU_InventoryStackPropertyChanged, FXInvU_Inventory& /* Inventory */, int32 /* SlotIndex */)
+DECLARE_MULTICAST_DELEGATE_ThreeParams(FXInvU_InventoryStackChanged, FXInvU_Inventory& /* Inventory */, int32 /* SlotIndex */, const FXInvU_ItemStack& /* OldStack */)
+
 /**
  * 
  */
@@ -18,12 +23,18 @@ struct XYLOINVENTORYUTIL_API FXInvU_Inventory
 
 	FXInvU_Inventory() {}
 	
-	FXInvU_Inventory(int32 Size)
+	FXInvU_Inventory(int32 Size, AActor* Owner = nullptr)
+		: InventoryOwner(Owner)
 	{
 		Slots.SetNum(Size);
 	}
 	
 	virtual ~FXInvU_Inventory() {}
+
+/*====================================================================================================================*/
+	// InventoryManagement
+
+	virtual void DebugPrintInventory() const;
 
 	virtual void CopyInventoryContent(const FXInvU_Inventory& Source);
 
@@ -37,10 +48,13 @@ struct XYLOINVENTORYUTIL_API FXInvU_Inventory
 
 	virtual int32 ConsumeItem(UXInvU_ItemDefinition* ItemDefinition, int32 Count);
 
-	virtual void GetChangedIndexes(const FXInvU_Inventory& OldInventory, TArray<int32>& OutChangedIndexes) const;
+	// ~InventoryManagement
+/*====================================================================================================================*/
 
-	virtual void DebugPrintInventory() const;
+/*====================================================================================================================*/
+	// SlotFilters
 
+public:
 	virtual FGameplayTagContainer& GetSlotCategoryFilterRef(int32 SlotIndex);
 
 	virtual bool GetSlotCategoryFilter(int32 SlotIndex, FGameplayTagContainer& OutCategoryFilter) const;
@@ -49,11 +63,38 @@ struct XYLOINVENTORYUTIL_API FXInvU_Inventory
 	
 protected:
 	virtual bool IsStackCompatibleWithSlot(const FXInvU_InventorySlot& Slot, const FXInvU_ItemStack& NewStack) const;
+
+	// ~SlotFilters
+/*====================================================================================================================*/
+
+/*====================================================================================================================*/
+	// Replication
 	
-	virtual void MarkStackPropertyDirty(FXInvU_InventorySlot& Slot);
-	virtual void MarkStackDirty(FXInvU_InventorySlot& Slot);
+protected:
+	virtual bool CanMarkDirty() const;
+	virtual void MarkStackPropertyDirty(FXInvU_InventorySlot& Slot, int32 SlotIndex);
+	virtual void MarkStackDirty(FXInvU_InventorySlot& Slot, int32 SlotIndex, const FXInvU_ItemStack& OldStack);
+
+	// ~Replication
+/*====================================================================================================================*/
+
+/*====================================================================================================================*/
+	// Callbacks
+	
+public:
+	FXInvU_InventoryStackPropertyChanged StackPropertyChangedDelegate;
+	FXInvU_InventoryStackChanged StackChangedDelegate;
+
+	virtual void GetChangedIndexes(const FXInvU_Inventory& OldInventory, TArray<int32>& OutChangedIndexes) const;
+	virtual void BroadcastChanges(const FXInvU_Inventory& OldInventory);
+
+	// ~Callbacks
+/*====================================================================================================================*/
 	
 protected:
 	UPROPERTY()
 	TArray<FXInvU_InventorySlot> Slots;
+
+	UPROPERTY()
+	TWeakObjectPtr<AActor> InventoryOwner;
 };

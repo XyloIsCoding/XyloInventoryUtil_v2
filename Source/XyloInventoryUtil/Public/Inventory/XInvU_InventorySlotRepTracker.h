@@ -50,10 +50,10 @@ struct XYLOINVENTORYUTIL_API FXInvU_InventorySlotRepTracker
 
 protected:
 	UPROPERTY(Transient)
-	bool bStackDirty = false;
+	bool bStackChanged = false;
 
 	UPROPERTY(Transient)
-	bool bStackChanged = false;
+	bool bStackPropertyChanged = false;
 };
 
 template<>

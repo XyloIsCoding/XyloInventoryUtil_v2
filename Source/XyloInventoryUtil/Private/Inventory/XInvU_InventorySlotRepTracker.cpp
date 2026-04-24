@@ -6,10 +6,10 @@
 
 void FXInvU_InventorySlotRepTracker::MarkStackPropertyDirty()
 {
-	if (!bStackDirty)
+	if (!bStackPropertyChanged)
 	{
-		StackID += 1;
-		bStackDirty = true;
+		ChangeID += 1;
+		bStackPropertyChanged = true;
 	}
 }
 
@@ -17,17 +17,17 @@ void FXInvU_InventorySlotRepTracker::MarkStackDirty()
 {
 	if (!bStackChanged)
 	{
-		ChangeID += 1;
-		StackID = 0;
+		StackID += 1;
+		ChangeID = 0;
 		bStackChanged = true;
-		bStackDirty = true;
+		bStackPropertyChanged = true;
 	}
 }
 
 bool FXInvU_InventorySlotRepTracker::NetSerialize(FArchive& Ar, class UPackageMap* Map, bool& bOutSuccess)
 {
 	bStackChanged = false;
-	bStackDirty = false;
+	bStackPropertyChanged = false;
 	
 	Ar.SerializeBits(&StackID, 8);
 	Ar.SerializeBits(&ChangeID, 8);

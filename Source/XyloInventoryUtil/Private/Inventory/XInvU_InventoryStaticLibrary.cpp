@@ -3,6 +3,11 @@
 
 #include "Inventory/XInvU_InventoryStaticLibrary.h"
 
+void UXInvU_InventoryStaticLibrary::DebugPrintInventory(const FXInvU_Inventory& Inventory)
+{
+	Inventory.DebugPrintInventory();
+}
+
 void UXInvU_InventoryStaticLibrary::CopyInventoryContent(FXInvU_Inventory& Target, const FXInvU_Inventory& Source)
 {
 	Target.CopyInventoryContent(Source);
@@ -38,16 +43,6 @@ int32 UXInvU_InventoryStaticLibrary::ConsumeItem(FXInvU_Inventory& Inventory, UX
 	return Inventory.ConsumeItem(ItemDefinition, Count);
 }
 
-void UXInvU_InventoryStaticLibrary::GetChangedIndexes(const FXInvU_Inventory& Inventory, const FXInvU_Inventory& OldInventory, TArray<int32>& OutChangedIndexes)
-{
-	Inventory.GetChangedIndexes(OldInventory, OutChangedIndexes);
-}
-
-void UXInvU_InventoryStaticLibrary::DebugPrintInventory(const FXInvU_Inventory& Inventory)
-{
-	Inventory.DebugPrintInventory();
-}
-
 bool UXInvU_InventoryStaticLibrary::GetSlotCategoryFilter(const FXInvU_Inventory& Inventory, int32 SlotIndex, FGameplayTagContainer& OutCategoryFilter)
 {
 	return Inventory.GetSlotCategoryFilter(SlotIndex, OutCategoryFilter);
@@ -56,4 +51,14 @@ bool UXInvU_InventoryStaticLibrary::GetSlotCategoryFilter(const FXInvU_Inventory
 void UXInvU_InventoryStaticLibrary::SetSlotCategoryFilter(FXInvU_Inventory& Inventory, int32 SlotIndex, FGameplayTagContainer NewCategoryFilter)
 {
 	Inventory.SetSlotCategoryFilter(SlotIndex, NewCategoryFilter);
+}
+
+void UXInvU_InventoryStaticLibrary::GetChangedIndexes(const FXInvU_Inventory& Inventory, const FXInvU_Inventory& OldInventory, TArray<int32>& OutChangedIndexes)
+{
+	Inventory.GetChangedIndexes(OldInventory, OutChangedIndexes);
+}
+
+void UXInvU_InventoryStaticLibrary::BroadcastChanges(FXInvU_Inventory& Inventory, const FXInvU_Inventory& OldInventory)
+{
+	Inventory.BroadcastChanges(OldInventory);
 }
