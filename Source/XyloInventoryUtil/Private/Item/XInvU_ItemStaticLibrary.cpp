@@ -22,6 +22,16 @@ const UXInvU_ItemDefinition* UXInvU_ItemStaticLibrary::GetItemDefinition(const F
 	return ItemStack.GetItemDefinition();
 }
 
+bool UXInvU_ItemStaticLibrary::GetItemCategories(FGameplayTagContainer& OutCategories, const FXInvU_ItemStack& ItemStack)
+{
+	if (const UXInvU_ItemDefinition* ItemDefinition = ItemStack.GetItemDefinition())
+	{
+		OutCategories = ItemDefinition->GetItemCategories();
+		return true;
+	}
+	return false;
+}
+
 const UXInvU_Item* UXInvU_ItemStaticLibrary::GetItem(const FXInvU_ItemStack& ItemStack)
 {
 	const UXInvU_ItemDefinition* ItemDefinition = ItemStack.GetItemDefinition();

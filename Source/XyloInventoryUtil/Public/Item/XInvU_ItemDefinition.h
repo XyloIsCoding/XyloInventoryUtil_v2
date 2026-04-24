@@ -32,7 +32,7 @@ public:
 	const UXInvU_Item* K2_GetItem(TSubclassOf<UXInvU_Item> Class) const;
 
 	UFUNCTION(BlueprintCallable)
-	FGameplayTagContainer GetItemCategories() const { return Categories; }
+	const FGameplayTagContainer& GetItemCategories() const { return Categories; }
 
 	UFUNCTION(BlueprintCallable)
 	const TArray<UXInvU_ItemFragmentDefinition*>& GetFragmentDefinitions() const { return Fragments; }

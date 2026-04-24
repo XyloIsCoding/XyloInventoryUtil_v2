@@ -28,6 +28,9 @@ public:
 	static const UXInvU_ItemDefinition* GetItemDefinition(const FXInvU_ItemStack& ItemStack);
 
 	UFUNCTION(Category="ItemStaticLibrary", BlueprintCallable)
+	static bool GetItemCategories(FGameplayTagContainer& OutCategories, const FXInvU_ItemStack& ItemStack);
+
+	UFUNCTION(Category="ItemStaticLibrary", BlueprintCallable)
 	static const UXInvU_Item* GetItem(const FXInvU_ItemStack& ItemStack);
 
 	UFUNCTION(Category="ItemStaticLibrary", BlueprintCallable)
