@@ -50,6 +50,10 @@ struct XYLOINVENTORYUTIL_API FXInvU_Inventory
 
 	virtual int32 ConsumeItem(UXInvU_ItemDefinition* ItemDefinition, int32 Count);
 
+	virtual int32 GetItemCount(UXInvU_ItemDefinition* ItemDefinition) const;
+
+	virtual int32 GetItemCountByCategory(FGameplayTag Category) const;
+
 	// ~InventoryManagement
 /*====================================================================================================================*/
 

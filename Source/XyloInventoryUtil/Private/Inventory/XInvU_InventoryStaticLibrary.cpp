@@ -48,6 +48,16 @@ int32 UXInvU_InventoryStaticLibrary::ConsumeItem(FXInvU_Inventory& Inventory, UX
 	return Inventory.ConsumeItem(ItemDefinition, Count);
 }
 
+int32 UXInvU_InventoryStaticLibrary::GetItemCount(const FXInvU_Inventory& Inventory, UXInvU_ItemDefinition* ItemDefinition)
+{
+	return Inventory.GetItemCount(ItemDefinition);
+}
+
+int32 UXInvU_InventoryStaticLibrary::GetItemCountByCategory(const FXInvU_Inventory& Inventory, FGameplayTag Category)
+{
+	return Inventory.GetItemCountByCategory(Category);
+}
+
 bool UXInvU_InventoryStaticLibrary::GetSlotCategoryFilter(const FXInvU_Inventory& Inventory, int32 SlotIndex, FGameplayTagContainer& OutCategoryFilter)
 {
 	return Inventory.GetSlotCategoryFilter(SlotIndex, OutCategoryFilter);

@@ -164,6 +164,34 @@ int32 FXInvU_Inventory::ConsumeItem(UXInvU_ItemDefinition* ItemDefinition, int32
 	return ConsumedCount;
 }
 
+int32 FXInvU_Inventory::GetItemCount(UXInvU_ItemDefinition* ItemDefinition) const
+{
+	int32 OutCount = 0;
+	for (const FXInvU_InventorySlot& Slot : Slots)
+	{
+		const UXInvU_ItemDefinition* StackDefinition = Slot.Stack.GetItemDefinition();
+		if (StackDefinition && StackDefinition == ItemDefinition)
+		{
+			OutCount += Slot.Stack.GetCount();
+		}
+	}
+	return OutCount;
+}
+
+int32 FXInvU_Inventory::GetItemCountByCategory(FGameplayTag Category) const
+{
+	int32 OutCount = 0;
+	for (const FXInvU_InventorySlot& Slot : Slots)
+	{
+		const UXInvU_ItemDefinition* StackDefinition = Slot.Stack.GetItemDefinition();
+		if (StackDefinition && StackDefinition->GetItemCategories().HasTagExact(Category))
+		{
+			OutCount += Slot.Stack.GetCount();
+		}
+	}
+	return OutCount;
+}
+
 // ~InventoryManagement
 /*====================================================================================================================*/
 

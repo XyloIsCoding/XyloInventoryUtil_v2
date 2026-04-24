@@ -39,6 +39,12 @@ public:
 
 	UFUNCTION(Category="InventoryStaticLibrary", BlueprintCallable)
 	static int32 ConsumeItem(UPARAM(ref) FXInvU_Inventory& Inventory, UXInvU_ItemDefinition* ItemDefinition, int32 Count);
+
+	UFUNCTION(Category="InventoryStaticLibrary", BlueprintCallable)
+	static int32 GetItemCount(const FXInvU_Inventory& Inventory, UXInvU_ItemDefinition* ItemDefinition);
+
+	UFUNCTION(Category="InventoryStaticLibrary", BlueprintCallable)
+	static int32 GetItemCountByCategory(const FXInvU_Inventory& Inventory, FGameplayTag Category);
 	
 	UFUNCTION(Category="InventoryStaticLibrary", BlueprintCallable)
 	static bool GetSlotCategoryFilter(const FXInvU_Inventory& Inventory, int32 SlotIndex, FGameplayTagContainer& OutCategoryFilter);
