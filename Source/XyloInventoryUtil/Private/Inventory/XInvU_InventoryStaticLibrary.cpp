@@ -13,6 +13,11 @@ void UXInvU_InventoryStaticLibrary::CopyInventoryContent(FXInvU_Inventory& Targe
 	Target.CopyInventoryContent(Source);
 }
 
+int32 UXInvU_InventoryStaticLibrary::GetInventorySize(const FXInvU_Inventory& Inventory)
+{
+	return Inventory.GetInventorySize();
+}
+
 bool UXInvU_InventoryStaticLibrary::GetStack(FXInvU_ItemStack& OutStack, const FXInvU_Inventory& Inventory, int32 SlotIndex)
 {
 	if (const FXInvU_ItemStack* FoundStack = Inventory.GetStack(SlotIndex))

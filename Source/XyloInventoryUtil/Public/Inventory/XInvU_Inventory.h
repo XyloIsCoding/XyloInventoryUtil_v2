@@ -37,6 +37,8 @@ struct XYLOINVENTORYUTIL_API FXInvU_Inventory
 	virtual void DebugPrintInventory() const;
 
 	virtual void CopyInventoryContent(const FXInvU_Inventory& Source);
+	
+	virtual int32 GetInventorySize() const { return Slots.Num(); }
 
 	virtual const FXInvU_ItemStack* GetStack(int32 SlotIndex) const;
 	

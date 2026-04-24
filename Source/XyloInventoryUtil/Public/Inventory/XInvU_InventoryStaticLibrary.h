@@ -23,6 +23,9 @@ public:
 	static void CopyInventoryContent(UPARAM(ref) FXInvU_Inventory& Target, const FXInvU_Inventory& Source);
 
 	UFUNCTION(Category="InventoryStaticLibrary", BlueprintCallable)
+	static int32 GetInventorySize(const FXInvU_Inventory& Inventory);
+	
+	UFUNCTION(Category="InventoryStaticLibrary", BlueprintCallable)
 	static bool GetStack(FXInvU_ItemStack& OutStack, const FXInvU_Inventory& Inventory, int32 SlotIndex);
 
 	UFUNCTION(Category="InventoryStaticLibrary", BlueprintCallable)
@@ -41,11 +44,11 @@ public:
 	static bool GetSlotCategoryFilter(const FXInvU_Inventory& Inventory, int32 SlotIndex, FGameplayTagContainer& OutCategoryFilter);
 
 	UFUNCTION(Category="InventoryStaticLibrary", BlueprintCallable)
-	static void SetSlotCategoryFilter(FXInvU_Inventory& Inventory, int32 SlotIndex, FGameplayTagContainer NewCategoryFilter);
+	static void SetSlotCategoryFilter(UPARAM(ref) FXInvU_Inventory& Inventory, int32 SlotIndex, FGameplayTagContainer NewCategoryFilter);
 
 	UFUNCTION(Category="InventoryStaticLibrary", BlueprintCallable)
 	static void GetChangedIndexes(const FXInvU_Inventory& Inventory, const FXInvU_Inventory& OldInventory, TArray<int32>& OutChangedIndexes);
 
 	UFUNCTION(Category="InventoryStaticLibrary", BlueprintCallable)
-	static void BroadcastChanges(FXInvU_Inventory& Inventory, const FXInvU_Inventory& OldInventory);
+	static void BroadcastChanges(UPARAM(ref) FXInvU_Inventory& Inventory, const FXInvU_Inventory& OldInventory);
 };
