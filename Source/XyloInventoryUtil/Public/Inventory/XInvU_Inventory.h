@@ -66,6 +66,8 @@ public:
 	virtual bool GetSlotCategoryFilter(int32 SlotIndex, FGameplayTagContainer& OutCategoryFilter) const;
 
 	virtual void SetSlotCategoryFilter(int32 SlotIndex, FGameplayTagContainer NewCategoryFilter);
+
+	virtual void AddSlotCategoryFilter(int32 SlotIndex, FGameplayTag NewCategoryFilter);
 	
 protected:
 	virtual bool IsStackCompatibleWithSlot(const FXInvU_InventorySlot& Slot, const FXInvU_ItemStack& NewStack) const;

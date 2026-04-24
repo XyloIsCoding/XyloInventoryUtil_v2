@@ -53,6 +53,9 @@ public:
 	static void SetSlotCategoryFilter(UPARAM(ref) FXInvU_Inventory& Inventory, int32 SlotIndex, FGameplayTagContainer NewCategoryFilter);
 
 	UFUNCTION(Category="InventoryStaticLibrary", BlueprintCallable)
+	static void AddSlotCategoryFilter(UPARAM(ref) FXInvU_Inventory& Inventory, int32 SlotIndex, FGameplayTag NewCategoryFilter);
+	
+	UFUNCTION(Category="InventoryStaticLibrary", BlueprintCallable)
 	static void GetChangedIndexes(const FXInvU_Inventory& Inventory, const FXInvU_Inventory& OldInventory, TArray<int32>& OutChangedIndexes);
 
 	UFUNCTION(Category="InventoryStaticLibrary", BlueprintCallable)

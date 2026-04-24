@@ -68,6 +68,11 @@ void UXInvU_InventoryStaticLibrary::SetSlotCategoryFilter(FXInvU_Inventory& Inve
 	Inventory.SetSlotCategoryFilter(SlotIndex, NewCategoryFilter);
 }
 
+void UXInvU_InventoryStaticLibrary::AddSlotCategoryFilter(FXInvU_Inventory& Inventory, int32 SlotIndex, FGameplayTag NewCategoryFilter)
+{
+	Inventory.AddSlotCategoryFilter(SlotIndex, NewCategoryFilter);
+}
+
 void UXInvU_InventoryStaticLibrary::GetChangedIndexes(const FXInvU_Inventory& Inventory, const FXInvU_Inventory& OldInventory, TArray<int32>& OutChangedIndexes)
 {
 	Inventory.GetChangedIndexes(OldInventory, OutChangedIndexes);

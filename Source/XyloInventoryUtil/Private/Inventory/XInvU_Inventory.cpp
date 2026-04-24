@@ -229,6 +229,17 @@ void FXInvU_Inventory::SetSlotCategoryFilter(int32 SlotIndex, FGameplayTagContai
 	Slot.CategoryFilter = NewCategoryFilter;
 }
 
+void FXInvU_Inventory::AddSlotCategoryFilter(int32 SlotIndex, FGameplayTag NewCategoryFilter)
+{
+	if (!Slots.IsValidIndex(SlotIndex))
+	{
+		return;
+	}
+
+	FXInvU_InventorySlot& Slot = Slots[SlotIndex];
+	Slot.CategoryFilter.AddTag(NewCategoryFilter);
+}
+
 bool FXInvU_Inventory::IsStackCompatibleWithSlot(const FXInvU_InventorySlot& Slot, const FXInvU_ItemStack& NewStack) const
 {
 	// Empty stack is always compatible
