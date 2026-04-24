@@ -33,6 +33,11 @@ const FXInvU_ItemStack* FXInvU_Inventory::GetStack(int32 SlotIndex) const
 	return Slots.IsValidIndex(SlotIndex) ? &Slots[SlotIndex].Stack : nullptr;
 }
 
+FXInvU_ItemStackPtr FXInvU_Inventory::GetStackPtr(int32 SlotIndex)
+{
+	return FXInvU_ItemStackPtr(*this, SlotIndex);
+}
+
 void FXInvU_Inventory::SetStack(int32 SlotIndex, const FXInvU_ItemStack& NewStack)
 {
 	if (!Slots.IsValidIndex(SlotIndex))
@@ -190,6 +195,11 @@ int32 FXInvU_Inventory::GetItemCountByCategory(FGameplayTag Category) const
 		}
 	}
 	return OutCount;
+}
+
+FXInvU_ItemStack* FXInvU_Inventory::GetStackMutable(int32 SlotIndex)
+{
+	return Slots.IsValidIndex(SlotIndex) ? &Slots[SlotIndex].Stack : nullptr;
 }
 
 // ~InventoryManagement

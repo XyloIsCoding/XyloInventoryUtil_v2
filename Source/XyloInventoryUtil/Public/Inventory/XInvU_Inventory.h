@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "XInvU_InventorySlot.h"
 #include "Item/XInvU_ItemStack.h"
+#include "Item/XInvU_ItemStackPtr.h"
 #include "UObject/Object.h"
 #include "XInvU_Inventory.generated.h"
 
@@ -20,6 +21,7 @@ USTRUCT(BlueprintType)
 struct XYLOINVENTORYUTIL_API FXInvU_Inventory
 {
 	GENERATED_BODY()
+	friend FXInvU_ItemStackPtr;
 
 	FXInvU_Inventory() {}
 	
@@ -34,6 +36,7 @@ struct XYLOINVENTORYUTIL_API FXInvU_Inventory
 /*====================================================================================================================*/
 	// InventoryManagement
 
+public:
 	virtual void DebugPrintInventory() const;
 
 	virtual void CopyInventoryContent(const FXInvU_Inventory& Source);
@@ -41,6 +44,8 @@ struct XYLOINVENTORYUTIL_API FXInvU_Inventory
 	virtual int32 GetInventorySize() const { return Slots.Num(); }
 
 	virtual const FXInvU_ItemStack* GetStack(int32 SlotIndex) const;
+
+	virtual FXInvU_ItemStackPtr GetStackPtr(int32 SlotIndex);
 	
 	virtual void SetStack(int32 SlotIndex, const FXInvU_ItemStack& NewStack);
 
@@ -53,6 +58,9 @@ struct XYLOINVENTORYUTIL_API FXInvU_Inventory
 	virtual int32 GetItemCount(UXInvU_ItemDefinition* ItemDefinition) const;
 
 	virtual int32 GetItemCountByCategory(FGameplayTag Category) const;
+
+protected:
+	virtual FXInvU_ItemStack* GetStackMutable(int32 SlotIndex);
 
 	// ~InventoryManagement
 /*====================================================================================================================*/
