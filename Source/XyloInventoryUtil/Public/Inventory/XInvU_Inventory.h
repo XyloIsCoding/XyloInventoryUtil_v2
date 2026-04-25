@@ -11,8 +11,8 @@
 
 struct FXInvU_Inventory;
 
-DECLARE_MULTICAST_DELEGATE_TwoParams(FXInvU_InventoryStackPropertyChanged, FXInvU_Inventory& /* Inventory */, int32 /* SlotIndex */)
-DECLARE_MULTICAST_DELEGATE_ThreeParams(FXInvU_InventoryStackChanged, FXInvU_Inventory& /* Inventory */, int32 /* SlotIndex */, const FXInvU_ItemStack& /* OldStack */)
+DECLARE_MULTICAST_DELEGATE_TwoParams(FXInvU_InventoryStackPropertyChangedSignature, FXInvU_Inventory& /* Inventory */, int32 /* SlotIndex */)
+DECLARE_MULTICAST_DELEGATE_ThreeParams(FXInvU_InventoryStackChangedSignature, FXInvU_Inventory& /* Inventory */, int32 /* SlotIndex */, const FXInvU_ItemStack& /* OldStack */)
 
 /**
  * 
@@ -98,8 +98,8 @@ protected:
 	// Callbacks
 	
 public:
-	FXInvU_InventoryStackPropertyChanged StackPropertyChangedDelegate;
-	FXInvU_InventoryStackChanged StackChangedDelegate;
+	FXInvU_InventoryStackPropertyChangedSignature StackPropertyChangedDelegate;
+	FXInvU_InventoryStackChangedSignature StackChangedDelegate;
 
 	virtual void GetChangedIndexes(const FXInvU_Inventory& OldInventory, TArray<int32>& OutChangedIndexes) const;
 	virtual void BroadcastChanges(const FXInvU_Inventory& OldInventory);
